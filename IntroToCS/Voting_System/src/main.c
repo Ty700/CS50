@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
 	if(tie){
 		fprintf(stdout, "We have a tie between: ");
 
-		for(int i = 0; i <= tie; i++){
+		for(int i = 0; i < tie; i++){
 			fprintf(stdout, "%s ", list[i]->name);
 		}
 		fprintf(stdout, "\n");

@@ -37,17 +37,18 @@ int main(int argc, char *argv[]){
 	
 	collect_ballots(list, LIST_SIZE, *voter_count);
 
-	int tie = get_winner(list, LIST_SIZE);
+	int tie_count = get_winner(list, LIST_SIZE);
 
-	if(tie){
+	if(tie_count){
 		fprintf(stdout, "We have a tie between: ");
 
-		for(int i = 0; i < tie; i++){
+		for(int i = 0; i <= tie_count; i++){
 			fprintf(stdout, "%s ", list[i]->name);
 		}
+
 		fprintf(stdout, "\n");
 	} else {
-		printf("Winner: %s\n", list[0]->name);
+		printf("Winner: %s\n", list[tie_count]->name);
 	}
 
 	//Clean up

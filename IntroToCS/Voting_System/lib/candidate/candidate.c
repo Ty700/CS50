@@ -10,7 +10,7 @@ static void clear_stream(){
 	while((c = getchar()) != '\n' && c != EOF){}
 }
 
-int generate_candidate_list(Candidate** list, uint32_t list_size, char *names[])
+uint32_t generate_candidate_list(Candidate** list, uint32_t list_size, char *names[])
 { 
 	
 	//Creates buffer to house candidates and inits name to be argv index
@@ -110,28 +110,26 @@ void collect_ballots(Candidate** list, uint32_t list_size, uint32_t voter_count)
     }
 }
 
-int get_winner(Candidate** list, uint32_t list_size){
-	//Finds winnder of candidate list in a destructive way
-	//Error with tie logic
+uint32_t get_winner(Candidate** list, uint32_t list_size){
+    // Finds winner of candidate list in a destructive way
+    uint32_t winner_index = 0;
 	uint32_t tie_count = 0;
 
-	for(int i = 1; i < list_size; i++){		
-		if(list[0]->votes < list[i]->votes){
+    for(int i = 1; i < list_size; i++){        
+        if(list[i]->votes > list[0]->votes){
+			list[0]->votes = list[i]->votes;
 			list[0]->name = list[i]->name;
-			tie_count = 0;
-		}
 
-		if(list[0]->votes == list[i]->votes){
-			list[tie_count + 1]->name = list[i]->name;
-			list[tie_count + 1]->votes = list[i]->votes;
+			if(tie_count != 0){
+				tie_count = 0;
+			}
+        }
 
-			tie_count++;
-		}
-	}
-
-	if(tie_count){
-		return tie_count;
-	}
-
-	return 0;
+		if (list[i]->votes == list[0]->votes) {
+			tie_count += 1;
+			list[tie_count]->name = list[i]->name;
+			list[tie_count]->votes = list[i]->votes;
+        }
+    }
+	return tie_count;
 }

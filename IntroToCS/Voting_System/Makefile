@@ -9,7 +9,8 @@ clean:
 	mkdir build
 
 run:
-	cd app && ./VotingSystem Tyler Bill Eli Bob
+# 	CHANGE THIS LINE 
+	cd app && ./VotingSystem Tyler Brian Vanissa Jacob Daniel
 
 debug:
 	rm -rf build/
